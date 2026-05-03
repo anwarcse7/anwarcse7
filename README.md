@@ -75,6 +75,233 @@ public class SeniorSoftwareEngineer
 
 ---
 
+## 🏥 Medical AI Portfolio
+
+<div align="center">
+
+*12 end-to-end clinical deep learning systems — classification, detection, segmentation & edge deployment*
+
+| # | Domain | Core Task | Architecture | Key Result |
+|---|--------|-----------|-------------|-----------|
+| 🧠 01 | Neuroimaging | Brain Tumor Classification + Segmentation | EfficientNet-B4 · U-Net | Acc **97.8%** · Dice **0.887** |
+| 🫁 02 | Thoracic Radiology | 14-Disease Multi-Label Detection | DenseNet121 (CheXNet) | 14-class AUC · CAM |
+| 🦴 03 | Musculoskeletal | Real-Time Fracture Localization | YOLOv8 · TensorRT | Real-time DICOM |
+| 👁️ 04 | Ophthalmology | Diabetic Retinopathy 5-class Grading | EfficientNet-B5 · Mixup | Ordinal Regression |
+| 🔬 05 | Dermatology | Melanoma & Lesion 7-class Classification | EfficientNet-B4 · Focal Loss | SHAP + Grad-CAM |
+| 🫀 06 | Cardiology | 3D Cardiac Structure Segmentation | 3D U-Net (MONAI) | Dice + Hausdorff |
+| 🫧 07 | Pulmonology | COVID-19 & Lung Disease CT | ResNet50 · Attention Gate | Grad-CAM API |
+| 🧬 08 | Neurology | Alzheimer's 4-Stage MRI Classification | ViT + CNN · Cross-Attention | Hybrid Fusion |
+| 🔴 09 | Hematology | Blood Cell Detection & WBC Subtyping | YOLOv8 · CNN Classifier | Multi-class Count |
+| 🔵 10 | Urology | Kidney Stone CT Detection | ResNet50 · SE-Net | Clinical Report Gen |
+| 🟠 11 | Hepatology | Liver & Tumor Segmentation CT | nnU-Net 3D | 3-Class Seg |
+| 🟢 12 | Parasitology | Malaria Edge AI Detection | MobileNetV3 · TFLite | Android · RPi Deploy |
+
+</div>
+
+<br/>
+
+<details>
+<summary><b>🧠 01 — Brain Tumor Classification & Segmentation</b></summary>
+<br/>
+
+Automated multi-class brain tumor detection and pixel-level segmentation from MRI scans.
+
+**Tumor Classes:** Glioma · Meningioma · Pituitary Tumor · No Tumor
+
+**Architecture:**
+- Classification: `EfficientNet-B4` (transfer learning) → Global Avg Pool → FC head → 4-class Softmax
+- Segmentation: `U-Net` with skip connections → Dice + BCE loss → Binary tumor mask
+- Explainability: Grad-CAM heatmaps for clinical trust
+
+**Results:**
+
+| Model | Accuracy | F1 | AUC-ROC |
+|-------|----------|----|---------|
+| ⚡ EfficientNet-B4 | **97.8%** | **0.977** | **0.995** |
+| ResNet50 | 95.2% | 0.951 | 0.987 |
+| VGG16 | 93.6% | 0.934 | 0.981 |
+| U-Net Segmentation | Dice **0.887** | IoU **0.798** | — |
+
+**Stack:** `PyTorch` `timm` `EfficientNet-B4` `U-Net` `Albumentations` `MLflow` `Grad-CAM` `ONNX`
+
+</details>
+
+---
+
+<details>
+<summary><b>🫁 02 — Chest X-Ray Multi-Disease Diagnosis</b></summary>
+<br/>
+
+Multi-label detection of 14 thoracic pathologies from chest radiographs.
+
+**Detects:** Pneumonia · COVID-19 · Tuberculosis · Pleural Effusion · Cardiomegaly · Atelectasis · Consolidation · Edema · Emphysema · Fibrosis · Hernia · Infiltration · Mass · Nodule
+
+**Architecture:** `DenseNet121` (CheXNet pretrained) → Multi-label BCE → Class Activation Maps for lesion localization
+
+**Stack:** `TensorFlow` `DenseNet121` `CheXNet` `OpenCV` `FastAPI` `Docker` `DICOM`
+
+</details>
+
+---
+
+<details>
+<summary><b>🦴 03 — Bone Fracture Real-Time Detection</b></summary>
+<br/>
+
+Real-time fracture detection and localization from X-ray images with bounding box output.
+
+**Fracture Types:** Hip · Wrist · Radius · Spine · Rib · Tibia · Fibula
+
+**Architecture:** `YOLOv8` backbone → Custom fracture classification head → `TensorRT` deployment → DICOM file support
+
+**Stack:** `YOLOv8` `OpenCV` `TensorRT` `DICOM` `FastAPI` `Docker`
+
+</details>
+
+---
+
+<details>
+<summary><b>👁️ 04 — Diabetic Retinopathy Grading</b></summary>
+<br/>
+
+5-class severity grading of diabetic retinopathy from fundus photography.
+
+**Grades:** No DR → Mild → Moderate → Severe → Proliferative DR
+
+**Architecture:** `EfficientNet-B5` + Mixup augmentation → Ordinal regression loss → REST API deployment
+
+**Stack:** `PyTorch` `EfficientNet-B5` `Albumentations` `Mixup` `ONNX` `FastAPI`
+
+</details>
+
+---
+
+<details>
+<summary><b>🔬 05 — Skin Lesion & Melanoma Classification</b></summary>
+<br/>
+
+7-class skin lesion classification with melanoma detection on dermoscopy images.
+
+**Classes:** Melanoma · Nevus · Basal Cell Carcinoma · Actinic Keratosis · Benign Keratosis · Dermatofibroma · Vascular Lesion
+
+**Architecture:** `EfficientNet-B4` → Focal Loss (class imbalance) → SHAP + Grad-CAM explainability
+
+**Stack:** `PyTorch` `EfficientNet` `Focal Loss` `SHAP` `Grad-CAM` `Albumentations`
+
+</details>
+
+---
+
+<details>
+<summary><b>🫀 06 — Cardiac Structure Segmentation (3D MRI)</b></summary>
+<br/>
+
+3D segmentation of cardiac structures from cine MRI for automated cardiac analysis.
+
+**Structures:** Left Ventricle · Right Ventricle · Myocardium
+
+**Architecture:** `3D U-Net` (MONAI framework) → Sliding window inference → Dice + Hausdorff distance metrics
+
+**Stack:** `PyTorch` `MONAI` `3D U-Net` `NIfTI` `ITK` `VTK`
+
+</details>
+
+---
+
+<details>
+<summary><b>🫧 07 — COVID-19 & Lung Disease Detection from CT</b></summary>
+<br/>
+
+Multi-class lung disease classification from CT scan slices.
+
+**Classes:** COVID-19 · Pneumonia · Lung Cancer · Normal
+
+**Architecture:** `ResNet50` + Attention gate → Grad-CAM lesion localization → Deployment API
+
+**Stack:** `PyTorch` `ResNet50` `OpenCV` `Attention` `FastAPI`
+
+</details>
+
+---
+
+<details>
+<summary><b>🧬 08 — Alzheimer's Disease Classification</b></summary>
+<br/>
+
+4-stage Alzheimer's severity classification from structural brain MRI.
+
+**Stages:** Non-Demented → Very Mild → Mild → Moderate Demented
+
+**Architecture:** Vision Transformer (`ViT`) + CNN hybrid → Cross-attention fusion → 4-class output
+
+**Stack:** `PyTorch` `ViT` `timm` `MONAI` `NiBabel`
+
+</details>
+
+---
+
+<details>
+<summary><b>🔴 09 — Blood Cell Detection & Analysis</b></summary>
+<br/>
+
+Automated blood cell detection, counting, and classification from microscopy images.
+
+**Cell Types:** RBC · WBC (Neutrophil, Eosinophil, Basophil, Lymphocyte, Monocyte) · Platelets
+
+**Architecture:** `YOLOv8` for detection → CNN classifier for WBC subtype → Cell count output
+
+**Stack:** `YOLOv8` `OpenCV` `PyTorch` `Microscopy`
+
+</details>
+
+---
+
+<details>
+<summary><b>🔵 10 — Kidney Stone Detection from CT</b></summary>
+<br/>
+
+Binary classification and localization of kidney stones from CT scan images.
+
+**Classes:** Normal · Cyst · Stone · Tumor
+
+**Architecture:** `ResNet50` + Squeeze-Excitation attention → Grad-CAM localization → Clinical report generation
+
+**Stack:** `PyTorch` `ResNet50` `SE-Net` `Grad-CAM`
+
+</details>
+
+---
+
+<details>
+<summary><b>🟠 11 — Liver Tumor Segmentation</b></summary>
+<br/>
+
+Automatic liver and tumor segmentation from abdominal CT scans.
+
+**Architecture:** `nnU-Net` (self-configuring) → 3D patch-based training → Multi-class segmentation (background · liver · tumor)
+
+**Stack:** `nnU-Net` `PyTorch` `MONAI` `NIfTI` `SimpleITK`
+
+</details>
+
+---
+
+<details>
+<summary><b>🟢 12 — Malaria Cell Detection (Edge AI)</b></summary>
+<br/>
+
+Lightweight malaria parasite detection for deployment on low-resource devices.
+
+**Classes:** Parasitized · Uninfected
+
+**Architecture:** `MobileNetV3` (optimized for edge devices) → TFLite export → Android / Raspberry Pi deployment
+
+**Stack:** `TensorFlow` `MobileNetV3` `TFLite` `OpenCV`
+
+</details>
+
+---
+
 ## ⚙️ Tech Stack
 
 <div align="center">
